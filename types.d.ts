@@ -1,4 +1,4 @@
-interface Domain {
+interface Risk {
   domain_id: string;
   domain: string;
   subdomains: Subdomain[];
@@ -12,5 +12,5 @@ interface Subdomain {
 interface Question {
   question_id: string;
   question: string;
-  sdoh_domains: Domain[];
+  sdoh_domains: Risk[];
 }
