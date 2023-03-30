@@ -15,7 +15,7 @@ export const Auth0ProviderWithHistory = ({
   const clientId = process.env.NEXT_PUBLIC_AUTH0_CLIENT_ID;
   const audience = process.env.NEXT_PUBLIC_AUTH0_AUDIENCE;
   const redirectUri = process.env.NEXT_PUBLIC_AUTH0_CALLBACK_URL;
-  console.log(process.env.NEXT_PUBLIC_AUTH0_DOMAIN)
+
   const onRedirectCallback = (appState?: AppState) => {
     router.push(appState?.returnTo || window.location.pathname);
   };

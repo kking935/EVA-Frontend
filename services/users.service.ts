@@ -1,4 +1,5 @@
 const apiServerUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
 const sendRequest = async (url: string, options: any) => {
 	try {
@@ -30,6 +31,7 @@ export const getProtectedResource = async (
 		headers: {
 			'content-type': 'application/json',
 			Authorization: `Bearer ${accessToken}`,
+			Origin: siteUrl
 		},
 	}
     return await sendRequest(endpoint, options);
@@ -46,6 +48,7 @@ export const getReport = async (
 		headers: {
 			'content-type': 'application/json',
 			Authorization: `Bearer ${accessToken}`,
+			Origin: siteUrl
 		},
 	};
 	return await sendRequest(endpoint, options);
@@ -62,6 +65,7 @@ export const postSurvey = async (
         headers: {
             'content-type': 'application/json',
             Authorization: `Bearer ${accessToken}`,
+			Origin: siteUrl
         },
         body: JSON.stringify(survey),
     };
