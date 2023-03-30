@@ -25,7 +25,7 @@ const QuestionCard = ({ question }: { question: Question }) => {
           </p>
           <div className="flex-grow" />
           <button
-            className={`w-5 h-5 flex justify-center items-center text-black font-bold bg-blue-300 p-5 ml-5 rounded-md transition transform duration-100 ease-in ${
+            className={`action-item w-5 h-5 flex justify-center items-center text-black font-bold bg-blue-300 p-5 ml-5 rounded-md transition transform duration-100 ease-in ${
               collapsed ? "rotate-0" : "rotate-90"
             }`}
             onClick={() => setCollapsed(!collapsed)}
