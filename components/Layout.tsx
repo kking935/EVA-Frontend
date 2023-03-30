@@ -11,7 +11,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
 
       <Header />
 
-			<main className='bg-secondary w-full pt-8 pb-52'>
+			<main className='bg-secondary w-full pt-8 pb-52 px-2'>
 				<div className=' mx-auto py-10 max-w-3xl'>{children}</div>
 			</main>
 
