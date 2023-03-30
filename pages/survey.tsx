@@ -6,7 +6,7 @@ import { FaSpinner } from 'react-icons/fa';
 import { postSurvey } from '../services/users.service';
 import { useAuth0 } from '@auth0/auth0-react';
 import { toast } from 'react-toastify';
-import questions from '../data/questions.json';
+import questions from '../data/short_questions.json';
 
 const SurveyPage = () => {
 	const {
