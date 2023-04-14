@@ -22,32 +22,14 @@ const sendRequest = async (url: string, options: any) => {
 	}
 };
 
-export const getProtectedResource = async (
-	accessToken: string
-): Promise<any> => {
-	const endpoint = "/api/messages/protected"
-    const options = {
-		method: 'GET',
-		headers: {
-			'content-type': 'application/json',
-			Authorization: `Bearer ${accessToken}`,
-			Origin: siteUrl
-		},
-	}
-    return await sendRequest(endpoint, options);
-};
-
 export const getReport = async (
-	accessToken: string,
-	sub: string,
 	reportId: string
 ): Promise<any> => {
-	const endpoint = `/users/${sub}/reports/${reportId}`;
+	const endpoint = `/reports/${reportId}`;
 	const options = {
 		method: 'GET',
 		headers: {
 			'content-type': 'application/json',
-			Authorization: `Bearer ${accessToken}`,
 			Origin: siteUrl
 		},
 	};
@@ -55,19 +37,43 @@ export const getReport = async (
 };
 
 export const postSurvey = async (
-    accessToken: string,
-    sub: string,
     survey: any
 ): Promise<any> => {
-    const endpoint = `/users/${sub}/reports/create`;
+    const endpoint = `/reports/create`;
     const options = {
         method: 'POST',
         headers: {
             'content-type': 'application/json',
-            Authorization: `Bearer ${accessToken}`,
 			Origin: siteUrl
         },
         body: JSON.stringify(survey),
+    };
+    return await sendRequest(endpoint, options);
+}
+
+export const createSurvey = async (): Promise<{data: SurveyModel | null, error: any}> => {
+    const endpoint = `/surveys/new-survey`;
+    const options = {
+        method: 'POST',
+        headers: {
+            'content-type': 'application/json',
+			Origin: siteUrl
+        },
+    };
+    return await sendRequest(endpoint, options);
+}
+
+export const addAnswer = async (
+    answer: AnswerModel,
+): Promise<any> => {
+    const endpoint = `/surveys/add-answer`;
+    const options = {
+        method: 'PUT',
+        headers: {
+            'content-type': 'application/json',
+			Origin: siteUrl
+        },
+        body: JSON.stringify(answer),
     };
     return await sendRequest(endpoint, options);
 }

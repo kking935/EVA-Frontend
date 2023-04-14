@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import Layout from '../components/Layout';
 import { FaClipboard } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import { useAuth0 } from '@auth0/auth0-react';
 import { getReport } from '../services/users.service';
 
 const ReportIdSnippet = ({ reportId }: { reportId: string }) => {
@@ -26,20 +25,16 @@ const ReportPage = () => {
 	const router = useRouter();
 	const [report, setReport] = useState<any>(null);
 	const [error, setError] = useState<any>(null);
-	const { getAccessTokenSilently, user } = useAuth0();
 	const [showReport, setShowReport] = useState(false);
 
 	useEffect(() => {
 		async function fetchData() {
 			const reportId = router.query.id;
-			if (!reportId || !user?.sub) {
+			if (!reportId) {
 				return;
 			}
 
-			const accessToken = await getAccessTokenSilently();
 			const { data, error } = await getReport(
-				accessToken,
-				user?.sub as string,
 				reportId as string
 			);
 			if (error) {
@@ -50,7 +45,7 @@ const ReportPage = () => {
 		}
 
 		fetchData();
-	}, [getAccessTokenSilently, router.query.id, user?.sub]);
+	}, [router.query.id]);
 
 	return (
 		<Layout>

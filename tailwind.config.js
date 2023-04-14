@@ -9,7 +9,18 @@ module.exports = {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-    extend: {},
+    // ...
+    extend: {
+      transitionProperty: {
+        'translate-x': 'transform',
+      },
+      transitionDuration: {
+        '500': '500ms',
+      },
+      translate: {
+        'full': '100%',
+      },
+    },
   },
   plugins: [],
 }
