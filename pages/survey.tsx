@@ -14,7 +14,7 @@
 // 		formState: { errors },
 // 	} = useForm();
 
-// 	const [rid, setRid] = useState(null);
+// 	const [report, setReport] = useState(null);
 // 	const [loading, setLoading] = useState(false);
 
 // 	const uploadAnswers = async (formData: any) => {
@@ -36,11 +36,11 @@
 
 // 		if (error) {
 // 			toast.error(error);
-// 			setRid(error);
+// 			setReport(error);
 // 			return;
 // 		}
 
-// 		setRid(data);
+// 		setReport(data);
 // 	};
 
 // 	return (
@@ -53,12 +53,12 @@
 // 						<p>SUBMITTING</p>
 // 					</div>
 // 				</div>
-// 			) : rid ? (
+// 			) : report ? (
 // 				<div className='text-2xl mt-32 flex space-y-3 flex-col justify-center items-center'>
 // 					<p className='font-bold text-2xl'>Submission Success!</p>
 // 					<Link
 // 						className='action-item text-dark font-bold w-32 text-center'
-// 						href={`/report?id=${rid}`}
+// 						href={`/report?id=${report}`}
 // 					>
 // 						View Results
 // 					</Link>
@@ -121,7 +121,7 @@ const SurveyPage = () => {
 		formState: { errors },
 	} = useForm();
 
-	const [rid, setRid] = useState(null);
+	const [report, setReport] = useState<ReportsModel>();
 	const [sid, setSid] = useState<string>();
 	const [question, setQuestion] = useState<QuestionsModel>();
 
@@ -171,21 +171,21 @@ const SurveyPage = () => {
 			} else if (data.rid) {
 				setQuestion(undefined);
 				console.log(data)
-				setRid(data);
+				setReport(data);
 			} else {
 				setQuestion(data);
 			}
 		}, timeoutTime);
 	};
 
-	if (rid) {
+	if (report) {
 		return (
 			<Layout>
 				<div className='text-2xl mt-32 flex space-y-3 flex-col justify-center items-center'>
 					<p className='font-bold text-2xl'>Submission Success!</p>
 					<Link
 						className='action-item text-dark font-bold w-32 text-center'
-						href={`/report?id=${rid}`}
+						href={`/report?id=${report.rid}`}
 					>
 						View Results
 					</Link>

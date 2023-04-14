@@ -65,7 +65,7 @@ interface Message {
 }
 
 interface ReportsModel {
-  rid?: string | null;
+  rid: string;
   survey: Record<string, SurveyQuestion>;
   messages?: Message[] | null;
   overall_risk_factor?: Record<string, string[]> | null;
