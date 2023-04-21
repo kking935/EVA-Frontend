@@ -17,7 +17,7 @@ const RiskTable = ({ domain }: { domain: Risk }) => {
   return (
     <table className="border border-white w-full">
       <thead>
-        <tr className="h-10 font-bold bg-blue-300 text-black border-b">
+        <tr className="h-10 font-bold bg-blue-200 text-black border-b">
           <th className="px-3 border-r w-16">ID: {domain.domain_id}</th>
           <th className="text-left pl-3">{domain.domain}</th>
         </tr>

@@ -111,7 +111,7 @@ const ReportPage = () => {
 								([question_id, entry]: [string, any]) => (
 									<div className='mb-10' key={question_id}>
 										<p className='font-bold'>
-											{parseInt(question_id) + 1}.{' '}
+											{parseInt(question_id)}.{' '}
 											{entry.question}
 										</p>
 										<p>

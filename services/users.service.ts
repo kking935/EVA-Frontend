@@ -3,7 +3,12 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL;
 
 const sendRequest = async (url: string, options: any) => {
 	try {
-		console.log("sending to ", apiServerUrl + url)
+		if (!options['headers']) {
+			options['headers'] = {};
+		}
+		options['headers']['Origin'] = siteUrl;
+		options['headers']['content-type'] = 'application/json';
+		console.log('sending to ', apiServerUrl + url);
 		const response = await fetch(apiServerUrl + url, options).then(
 			(response) => response.json()
 		);
@@ -12,7 +17,7 @@ const sendRequest = async (url: string, options: any) => {
 			error: null,
 		};
 	} catch (error) {
-		alert("error!")
+		console.log("ERROR: ", error)
 		return {
 			data: null,
 			error: {
@@ -22,58 +27,43 @@ const sendRequest = async (url: string, options: any) => {
 	}
 };
 
-export const getReport = async (
-	reportId: string
-): Promise<any> => {
-	const endpoint = `/reports/${reportId}`;
-	const options = {
+export const getReport = async (reportId: string): Promise<any> => {
+	return await sendRequest(`/reports/${reportId}`, {
 		method: 'GET',
-		headers: {
-			'content-type': 'application/json',
-			Origin: siteUrl
-		},
-	};
-	return await sendRequest(endpoint, options);
+	});
 };
 
-export const postSurvey = async (
-    survey: any
-): Promise<any> => {
-    const endpoint = `/reports/create`;
-    const options = {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json',
-			Origin: siteUrl
-        },
-        body: JSON.stringify(survey),
-    };
-    return await sendRequest(endpoint, options);
-}
+export const getReports = async (): Promise<any> => {
+	return await sendRequest(`/reports/all`, {
+		method: 'GET',
+	});
+};
 
-export const createSurvey = async (): Promise<{data: SurveyModel | null, error: any}> => {
-    const endpoint = `/surveys/new-survey`;
-    const options = {
-        method: 'POST',
-        headers: {
-            'content-type': 'application/json',
-			Origin: siteUrl
-        },
-    };
-    return await sendRequest(endpoint, options);
-}
+export const getQuestions = async (): Promise<any> => {
+	return await sendRequest('/questions/all', {
+		method: 'GET',
+	});
+};
 
-export const addAnswer = async (
-    answer: AnswerModel,
-): Promise<any> => {
-    const endpoint = `/surveys/add-answer`;
-    const options = {
-        method: 'PUT',
-        headers: {
-            'content-type': 'application/json',
-			Origin: siteUrl
-        },
-        body: JSON.stringify(answer),
-    };
-    return await sendRequest(endpoint, options);
-}
+export const postSurvey = async (survey: any): Promise<any> => {
+	return await sendRequest('/reports/create', {
+		method: 'POST',
+		body: JSON.stringify(survey),
+	});
+};
+
+export const createSurvey = async (): Promise<{
+	data: SurveyModel | null;
+	error: any;
+}> => {
+	return await sendRequest('/surveys/new-survey', {
+		method: 'POST',
+	});
+};
+
+export const addAnswer = async (answer: AnswerModel): Promise<any> => {
+	return await sendRequest('/surveys/add-answer', {
+		method: 'PUT',
+		body: JSON.stringify(answer),
+	});
+};

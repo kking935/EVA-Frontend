@@ -9,11 +9,11 @@ interface Subdomain {
   subdomain: string;
 }
 
-interface Question {
-  question_id: string;
-  question: string;
-  sdoh_domains: Risk[];
-}
+// interface Question {
+//   question_id: string;
+//   question: string;
+//   sdoh_domains: Risk[];
+// }
 
 interface SublabelModel {
   slid: string;
@@ -70,6 +70,7 @@ interface ReportsModel {
   messages?: Message[] | null;
   overall_risk_factor?: Record<string, string[]> | null;
   summary?: string | null;
+  date?: string
 }
 
 interface UsersModel {
