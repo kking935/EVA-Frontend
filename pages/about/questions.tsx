@@ -12,14 +12,14 @@ import { FaChevronRight } from 'react-icons/fa';
 //   };
 // };
 
-const QuestionCard = ({ question }: { question: Question }) => {
+const QuestionCard = ({ question }: { question: QuestionsModel }) => {
 	const [collapsed, setCollapsed] = useState(true);
 	return (
 		<>
-			<li key={`question-${question.question_id}`} className='mb-5'>
+			<li key={`question-${question.qid}`} className='mb-5'>
 				<div className='flex flex-row'>
 					<p className=''>
-						{question.question} (ID: {question.question_id})
+						{question.question} (ID: {question.qid})
 					</p>
 					<div className='flex-grow' />
 					<button
@@ -52,31 +52,31 @@ const QuestionCard = ({ question }: { question: Question }) => {
 						</tr>
 					</thead>
 					<tbody>
-						{question?.sdoh_domains?.map((domain: any) => (
+						{question?.labels?.map((domain: LabelsModel) => (
 							<>
 								<tr
-									key={`domain-${domain.domain_id}`}
+									key={`domain-${domain.lid}`}
 									className='h-10 bg-blue-300 text-black border border-gray-400 font-bold'
 								>
 									<td className='border-r border-gray-400'>
-										{domain.domain_id}
+										{domain.lid}
 									</td>
 									<td className='text-left pl-3 border-r border-gray-400'>
-										{domain.domain}
+										{domain.label}
 									</td>
 									<td></td>
 								</tr>
-								{domain.subdomains.map((subdomain: any) => (
+								{domain.sublabels.map((subdomain: SublabelModel) => (
 									<tr
-										key={`subdomain-${subdomain.subdomain_id}`}
+										key={`subdomain-${subdomain.slid}`}
 										className='h-10 font-medium border border-gray-400'
 									>
 										<td className='border-r border-gray-400'>
-											{subdomain.subdomain_id}
+											{subdomain.slid}
 										</td>
 										<td className='border-r border-gray-400'></td>
 										<td className='text-left pl-3'>
-											{subdomain.subdomain}
+											{subdomain.sublabel}
 										</td>
 									</tr>
 								))}
