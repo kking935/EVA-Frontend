@@ -62,7 +62,7 @@ const HomePage = () => {
 									<FaCalendar size={20} />
 								</p>
 								<p className='font-semibold text-base'>
-									{'12/23/22'}
+									{report.created_at}
 								</p>
 							</div>
 							<p className=' text-sm italic px-5 truncate flex-grow'>

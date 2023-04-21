@@ -65,6 +65,7 @@ interface Message {
 }
 
 interface ReportsModel {
+  created_at: string;
   rid: string;
   survey: Record<string, SurveyQuestion>;
   messages?: Message[] | null;
