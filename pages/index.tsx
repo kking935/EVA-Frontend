@@ -8,9 +8,48 @@ import {
 } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import { getReports } from '../services/users.service';
+import LoadingIcon from '../components/LoadingIcon';
+import About from '../components/About';
+
+const DisplayReports = ({ reports }: { reports: ReportsModel[] }) => {
+	return (
+		<>
+			{reports.map((report: ReportsModel) => (
+				<Link key={report.rid} href={`/report?id=${report.rid}`}>
+					<li className='text-gray-700 px-5 py-3 rounded-lg shadow w-full flex items-center justify-between'>
+						<p className='border-r pr-5 font-bold whitespace-nowrap text-sm sm:text-lg'>
+							Report {report.rid}
+						</p>
+						<div className=' whitespace-nowrap font-semibold sm:border-r text-xs sm:text-base px-5 flex items-center justify-end space-x-2'>
+							<p>
+								<FaCalendar size={20} />
+							</p>
+							<p>{report.created_at}</p>
+						</div>
+						<p className='invisible sm:visible text-sm italic px-5 truncate'>
+							{report.summary}
+						</p>
+						<p>
+							<FaChevronRight className='' size={15} />
+						</p>
+					</li>
+				</Link>
+			))}
+		</>
+	);
+};
+
+const NoReports = () => {
+	return (
+		<>
+			<p className='text-center my-10'>No reports yet</p>
+		</>
+	);
+};
 
 const HomePage = () => {
 	const [reports, setReports] = useState<ReportsModel[]>();
+	const [loading, setLoading] = useState<boolean>(true);
 
 	useEffect(() => {
 		async function fetchData() {
@@ -19,27 +58,30 @@ const HomePage = () => {
 				console.log(error);
 				return;
 			}
+			data.sort(
+				(a: ReportsModel, b: ReportsModel) =>
+					parseInt(b.rid) - parseInt(a.rid)
+			);
 			setReports(data);
+			setLoading(false);
 		}
 
 		fetchData();
 	}, []);
 
+	const renderContent = () => {
+		if (loading) {
+			return <LoadingIcon loading={loading} />;
+		} else if (reports && reports.length > 0) {
+			return <DisplayReports reports={reports} />;
+		} else {
+			return <NoReports />;
+		}
+	};
+
 	return (
 		<Layout>
-			<div className='bg-gray-200 p-10 rounded-xl shadow mb-12'>
-				<h2 className='font-bold text-3xl text-center mb-3'>
-					ABOUT EVA
-				</h2>
-
-				<p className='text-md leading-7'>
-					<b>EVA</b> is an elderly virtual assistant leverages natural
-					language processing to identify health risks for socially
-					isolated senior citizens. By referencing to a senior
-					citizen&lsquo;s <b>EVA Health Report</b>, care teams can
-					better address risk factors and improve health outcomes.
-				</p>
-			</div>
+			<About />
 
 			<div className='flex justify-between items-end border-b-2 pb-1 mb-5'>
 				<h3 className='font-semibold text-2xl'>PAST REPORTS</h3>
@@ -53,28 +95,7 @@ const HomePage = () => {
 				</Link>
 			</div>
 
-			<ul>
-				{reports?.map((report: ReportsModel) => (
-					<Link key={report.rid} href={`/report?id=${report.rid}`}>
-						<li className='px-5 py-3 rounded-lg shadow w-full flex items-center justify-between'>
-							<div className=' text-gray-700 pr-5 border-r flex items-center justify-start space-x-2'>
-								<p>
-									<FaCalendar size={20} />
-								</p>
-								<p className='font-semibold text-base'>
-									{report.created_at}
-								</p>
-							</div>
-							<p className=' text-sm italic px-5 truncate flex-grow'>
-								{report.summary}
-							</p>
-							<p>
-								<FaChevronRight className='' size={15} />
-							</p>
-						</li>
-					</Link>
-				)) || <p className='text-center my-10'>No reports yet</p>}
-			</ul>
+			<ul>{renderContent()}</ul>
 		</Layout>
 	);
 };

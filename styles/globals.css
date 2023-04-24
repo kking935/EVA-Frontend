@@ -6,7 +6,8 @@
   /* Create a CSS variable  */
   --bg-primary: #93d4ff;
   --bg-secondary: white;
-  --bg-dark: rgb(37, 50, 63);
+  /* --bg-dark: rgb(37, 50, 63); */
+  --bg-dark: #334155;
   --text-primary: black;
   --text-secondary: rgb(64, 66, 73);
   --text-dark: white;

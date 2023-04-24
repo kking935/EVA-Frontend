@@ -111,6 +111,7 @@ import { useState, useEffect } from 'react';
 import { FaSpinner } from 'react-icons/fa';
 import { createSurvey, addAnswer } from '../services/users.service';
 import { toast } from 'react-toastify';
+import LoadingIcon from '../components/LoadingIcon';
 
 const timeoutTime = 500
 
@@ -200,14 +201,7 @@ const SurveyPage = () => {
 			<div
 				className={`border shadow-xl rounded-xl my-10 py-4 md:py-8 px-7 md:px-14`}
 			>
-				<div
-					className={`${
-						question ? 'hidden' : ''
-					} animate-pulse py-32 flex justify-center items-center flex-col space-y-5`}
-				>
-					<FaSpinner size={40} className='animate-spin' />
-					<p>LOADING</p>
-				</div>
+				<LoadingIcon loading={!question} />
 				{question && (
 					<form
 						// className={`${question ? '' : 'hidden'}`}
