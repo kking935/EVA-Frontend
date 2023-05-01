@@ -1,39 +1,40 @@
-import { FaExclamationTriangle, FaTags } from 'react-icons/fa';
 import Layout from '../../components/Layout';
 import { getLabels } from '../../services/backend.service';
 
 export const getStaticProps = async () => {
+	console.log('fetching...')
 	const { data, error } = await getLabels();
+	console.log(data)
 	if (error) {
 		console.log(error);
 	}
 	return {
 		props: {
-			risks: data,
+			labels: data,
 		},
 	};
 };
 
-const RiskTable = ({ risk }: { risk: Risk }) => {
+const LabelTable = ({ label }: { label: LabelsModel }) => {
 	return (
 		<table className='border border-white w-full'>
 			<thead>
 				<tr className='h-10 font-bold bg-blue-200 text-black border-b'>
-					<th className='px-3 border-r w-16'>ID: {risk.domain_id}</th>
-					<th className='text-left pl-3'>{risk.domain}</th>
+					<th className='px-3 border-r w-16'>ID: {label.lid}</th>
+					<th className='text-left pl-3'>{label.label}</th>
 				</tr>
 			</thead>
 
 			<tbody>
-				{risk.subdomains.map((subdomain) => (
+				{label.sublabels.map((sublabel) => (
 					<tr
-						key={risk.domain_id + subdomain.subdomain_id}
+						key={label.lid + sublabel.slid}
 						className='border-b h-10 font-medium'
 					>
 						<td className='text-center px-3 border-r'>
-							{subdomain.subdomain_id}
+							{sublabel.slid}
 						</td>
-						<td className='pl-3'>{subdomain.subdomain}</td>
+						<td className='pl-3'>{sublabel.sublabel}</td>
 					</tr>
 				))}
 			</tbody>
@@ -41,25 +42,23 @@ const RiskTable = ({ risk }: { risk: Risk }) => {
 	);
 };
 
-const RisksPage = ({ risks }: { risks: Risk[] }) => {
+const LabelsPage = ({ labels }: { labels: LabelsModel[] }) => {
 	return (
 		<Layout>
 			<div className='flex items-center justify-center space-x-5'>
-				<FaExclamationTriangle size={25} />
-				<h2 className='font-bold text-2xl text-center'>Risks</h2>
-				<FaExclamationTriangle size={25} />
+				<h2 className='font-bold text-2xl text-center'>Labels</h2>
 			</div>
 			<hr className='my-5' />
 			<div className='flex flex-col space-y-10'>
-				{risks ? (
-					risks.map((item, idx) => (
-						<RiskTable key={`domain-${idx}`} risk={item} />
+				{labels ? (
+					labels.map((item, idx) => (
+						<LabelTable key={`label-${idx}`} label={item} />
 					))
 				) : (
-					<p className='text-center'>No risks found</p>
+					<p className='text-center'>No labels found</p>
 				)}
 			</div>
 		</Layout>
 	);
 };
-export default RisksPage;
+export default LabelsPage;
