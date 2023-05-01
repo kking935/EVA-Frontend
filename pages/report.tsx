@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Layout from '../components/Layout';
 import { FaClipboard } from 'react-icons/fa';
 import { toast } from 'react-toastify';
-import { getReport } from '../services/users.service';
+import { getReport } from '../services/backend.service';
 
 const ReportIdSnippet = ({ reportId }: { reportId: string }) => {
 	const copyToClipboard = () => {
@@ -34,9 +34,7 @@ const ReportPage = () => {
 				return;
 			}
 
-			const { data, error } = await getReport(
-				reportId as string
-			);
+			const { data, error } = await getReport(reportId as string);
 			if (error) {
 				setError(error);
 				return;
@@ -93,10 +91,12 @@ const ReportPage = () => {
 						<>No risk factors found.</>
 					)}
 
-					<div className={`flex flex-row items-center justify-start border-b border-t mt-16 py-3 border-black`}>
+					<div
+						className={`flex flex-row items-center justify-start border-b border-t mt-16 py-3 border-black`}
+					>
 						<h3 className='grow font-semibold text-xl'>
-								Full Report
-							</h3>
+							Full Report
+						</h3>
 						<button
 							className='action-item'
 							onClick={() => setShowReport(!showReport)}
@@ -106,7 +106,6 @@ const ReportPage = () => {
 					</div>
 					{showReport ? (
 						<>
-		
 							{Object.entries(report.survey).map(
 								([question_id, entry]: [string, any]) => (
 									<div className='mb-10' key={question_id}>

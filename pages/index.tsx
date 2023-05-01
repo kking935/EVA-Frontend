@@ -7,7 +7,7 @@ import {
 	FaPlus,
 } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
-import { getReports } from '../services/users.service';
+import { getReports } from '../services/backend.service';
 import LoadingIcon from '../components/LoadingIcon';
 import About from '../components/About';
 
@@ -84,14 +84,16 @@ const HomePage = () => {
 			<About />
 
 			<div className='flex justify-between items-end border-b-2 pb-1 mb-5'>
-				<h3 className='font-semibold text-2xl'>PAST REPORTS</h3>
+				<h3 className='font-semibold text-xl sm:text-2xl'>
+					PAST REPORTS
+				</h3>
 
 				<Link
 					href='/survey'
 					className='action-item font-bold text-dark flex items-center justify-center space-x-2 h-12'
 				>
 					<FaPlus />
-					<p>NEW SURVEY</p>
+					<p className='text-xs sm:text-base'>NEW SURVEY</p>
 				</Link>
 			</div>
 

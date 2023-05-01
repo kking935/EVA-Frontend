@@ -1,119 +1,13 @@
-// import Layout from '../components/Layout';
-// import { useForm } from 'react-hook-form';
-// import Link from 'next/link';
-// import { useState } from 'react';
-// import { FaSpinner } from 'react-icons/fa';
-// import { postSurvey } from '../services/users.service';
-// import { toast } from 'react-toastify';
-// import questions from '../data/short_questions.json';
-
-// const SurveyPage = () => {
-// 	const {
-// 		register,
-// 		handleSubmit,
-// 		formState: { errors },
-// 	} = useForm();
-
-// 	const [report, setReport] = useState(null);
-// 	const [loading, setLoading] = useState(false);
-
-// 	const uploadAnswers = async (formData: any) => {
-// 		setLoading(true);
-// 		console.log(formData);
-// 		const entries = [];
-// 		for (const id in formData) {
-// 			entries.push({
-// 				question: questions[parseInt(id)].question,
-// 				answer: formData[id],
-// 				question_id: parseInt(id),
-// 			});
-// 		}
-// 		console.log(entries);
-
-// 		const { data, error } = await postSurvey(entries);
-// 		console.log('Server responded with data: ', data, 'and error: ', error);
-// 		setLoading(false);
-
-// 		if (error) {
-// 			toast.error(error);
-// 			setReport(error);
-// 			return;
-// 		}
-
-// 		setReport(data);
-// 	};
-
-// 	return (
-// 		<Layout>
-// 			<h2 className='font-bold text-2xl text-center'>Survey</h2>
-// 			{loading ? (
-// 				<div className='w-32 h-32 mx-auto text-primary bg-primary font-bold text-2xl mt-32 pt-32 px-32 pb-24 shadow-lg rounded-xl flex flex-col items-center justify-center'>
-// 					<div className='animate-pulse flex justify-center items-center flex-col space-y-5'>
-// 						<FaSpinner size={40} className='animate-spin' />
-// 						<p>SUBMITTING</p>
-// 					</div>
-// 				</div>
-// 			) : report ? (
-// 				<div className='text-2xl mt-32 flex space-y-3 flex-col justify-center items-center'>
-// 					<p className='font-bold text-2xl'>Submission Success!</p>
-// 					<Link
-// 						className='action-item text-dark font-bold w-32 text-center'
-// 						href={`/report?id=${report}`}
-// 					>
-// 						View Results
-// 					</Link>
-// 				</div>
-// 			) : (
-// 				<form
-// 					className='border shadow-xl rounded-xl my-10 py-4 md:py-8 px-7 md:px-14'
-// 					onSubmit={handleSubmit(
-// 						async (data) => await uploadAnswers(data)
-// 					)}
-// 				>
-// 					{questions.map((question, index) => {
-// 						return (
-// 							<div className='mb-10' key={`question-${index}`}>
-// 								<p>
-// 									{index + 1}. {question.question}
-// 								</p>
-// 								<textarea
-// 									className='px-3 py-2 rounded-lg'
-// 									{...register(`${index}`, {
-// 										required: true,
-// 									})}
-// 								/>
-// 								{errors[`${index}`] && (
-// 									<p>Unanswered question</p>
-// 								)}
-// 							</div>
-// 						);
-// 					})}
-// 					<div className='inline-flex justify-center items-center w-full mt-10'>
-// 						<button
-// 							className='action-item text-dark font-bold w-32'
-// 							type='submit'
-// 						>
-// 							Submit
-// 						</button>
-// 					</div>
-// 				</form>
-// 			)}
-// 		</Layout>
-// 	);
-// };
-
-// export default SurveyPage;
-
 import Layout from '../components/Layout';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { FaSpinner } from 'react-icons/fa';
-import { createSurvey, addAnswer } from '../services/users.service';
+import { createSurvey, addAnswer } from '../services/backend.service';
 import { toast } from 'react-toastify';
 import LoadingIcon from '../components/LoadingIcon';
 
-const timeoutTime = 500
+const timeoutTime = 500;
 
 const SurveyPage = () => {
 	const {
@@ -125,6 +19,7 @@ const SurveyPage = () => {
 	const [report, setReport] = useState<ReportsModel>();
 	const [sid, setSid] = useState<string>();
 	const [question, setQuestion] = useState<QuestionsModel>();
+	const [numQuestions, setNumQuestions] = useState<number>(0);
 
 	useEffect(() => {
 		const handleNewSurvey = async () => {
@@ -137,6 +32,7 @@ const SurveyPage = () => {
 				} else {
 					setSid(data.sid);
 					setQuestion(data.survey[data.cur_qid]);
+					setNumQuestions(Object.keys(data.survey).length);
 				}
 			} catch (error) {
 				toast.error('Failed to fetch question.');
@@ -163,6 +59,7 @@ const SurveyPage = () => {
 		};
 
 		setQuestion(undefined);
+		setNumQuestions(numQuestions - 1);
 
 		setTimeout(async () => {
 			const { data, error } = await addAnswer(answer);
@@ -171,7 +68,7 @@ const SurveyPage = () => {
 				setQuestion(error);
 			} else if (data.rid) {
 				setQuestion(undefined);
-				console.log(data)
+				console.log(data);
 				setReport(data);
 			} else {
 				setQuestion(data);

@@ -1,16 +1,19 @@
 import { useEffect, useState } from 'react';
 import Layout from '../../components/Layout';
-import { getQuestions } from '../../services/users.service';
+import { getQuestions } from '../../services/backend.service';
 import { FaChevronRight } from 'react-icons/fa';
 
-// export const getStaticProps = async () => {
-//   const questions = await getQuestions();
-//   return {
-//     props: {
-//       questions,
-//     },
-//   };
-// };
+export const getStaticProps = async () => {
+	const { data, error } = await getQuestions();
+	if (error) {
+		console.log(error);
+	}
+	return {
+		props: {
+			questions: data,
+		},
+	};
+};
 
 const QuestionCard = ({ question }: { question: QuestionsModel }) => {
 	const [collapsed, setCollapsed] = useState(true);
@@ -66,20 +69,22 @@ const QuestionCard = ({ question }: { question: QuestionsModel }) => {
 									</td>
 									<td></td>
 								</tr>
-								{domain.sublabels.map((subdomain: SublabelModel) => (
-									<tr
-										key={`subdomain-${subdomain.slid}`}
-										className='h-10 font-medium border border-gray-400'
-									>
-										<td className='border-r border-gray-400'>
-											{subdomain.slid}
-										</td>
-										<td className='border-r border-gray-400'></td>
-										<td className='text-left pl-3'>
-											{subdomain.sublabel}
-										</td>
-									</tr>
-								))}
+								{domain.sublabels.map(
+									(subdomain: SublabelModel) => (
+										<tr
+											key={`subdomain-${subdomain.slid}`}
+											className='h-10 font-medium border border-gray-400'
+										>
+											<td className='border-r border-gray-400'>
+												{subdomain.slid}
+											</td>
+											<td className='border-r border-gray-400'></td>
+											<td className='text-left pl-3'>
+												{subdomain.sublabel}
+											</td>
+										</tr>
+									)
+								)}
 							</>
 						))}
 					</tbody>
@@ -89,22 +94,22 @@ const QuestionCard = ({ question }: { question: QuestionsModel }) => {
 	);
 };
 
-// const QuestionsPage = ({ questions }: Props) => {
-const QuestionsPage = () => {
-	const [questions, setQuestions] = useState<QuestionsModel[]>([]);
+const QuestionsPage = ({ questions }: { questions: QuestionsModel[] }) => {
+	// const QuestionsPage = () => {
+	// const [questions, setQuestions] = useState<QuestionsModel[]>([]);
 
-	useEffect(() => {
-		async function fetchData() {
-			const { data, error } = await getQuestions();
-			if (error) {
-				console.log(error);
-				return;
-			}
-			setQuestions(data);
-		}
+	// useEffect(() => {
+	// 	async function fetchData() {
+	// 		const { data, error } = await getQuestions();
+	// 		if (error) {
+	// 			console.log(error);
+	// 			return;
+	// 		}
+	// 		setQuestions(data);
+	// 	}
 
-		fetchData();
-	}, []);
+	// 	fetchData();
+	// }, []);
 
 	return (
 		<Layout>
@@ -112,12 +117,16 @@ const QuestionsPage = () => {
 				<h2 className='font-bold text-2xl text-center'>Questions</h2>
 				<hr className='my-5' />
 				<ol className='list-decimal'>
-					{questions?.map((question: QuestionsModel) => (
-						<QuestionCard
-							key={`question-wrapper-${question.qid}`}
-							question={question}
-						/>
-					))}
+					{questions ? (
+						questions?.map((question: QuestionsModel) => (
+							<QuestionCard
+								key={`question-wrapper-${question.qid}`}
+								question={question}
+							/>
+						))
+					) : (
+						<p className='text-center'>No questions found</p>
+					)}
 				</ol>
 			</div>
 		</Layout>

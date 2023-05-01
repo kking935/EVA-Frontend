@@ -17,7 +17,7 @@ const sendRequest = async (url: string, options: any) => {
 			error: null,
 		};
 	} catch (error) {
-		console.log("ERROR: ", error)
+		console.log('ERROR: ', error);
 		return {
 			data: null,
 			error: {
@@ -41,6 +41,12 @@ export const getReports = async (): Promise<any> => {
 
 export const getQuestions = async (): Promise<any> => {
 	return await sendRequest('/questions/all', {
+		method: 'GET',
+	});
+};
+
+export const getLabels = async (): Promise<any> => {
+	return await sendRequest('/labels/all', {
 		method: 'GET',
 	});
 };
