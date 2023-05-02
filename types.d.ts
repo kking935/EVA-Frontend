@@ -21,7 +21,7 @@ interface SublabelModel {
 }
 
 interface LabelsModel {
-  lid: string | null;
+  lid: string;
   label: string;
   sublabels: SublabelModel[];
 }
@@ -29,7 +29,7 @@ interface LabelsModel {
 interface QuestionsModel {
   qid: string;
   question: string;
-  labels?: LabelsModel[] | null;
+  labels?: LabelsModel[];
 }
 
 interface EntryModel {
@@ -69,9 +69,9 @@ interface ReportsModel {
   rid: string;
   survey: Record<string, SurveyQuestion>;
   messages?: Message[] | null;
-  overall_risk_factor?: Record<string, string[]> | null;
-  summary?: string | null;
-  date?: string
+  overall_risk_factors: Record<string, string[]>;
+  summary: string | null;
+  date: string
 }
 
 interface UsersModel {

@@ -47,6 +47,16 @@ const NoReports = () => {
 	);
 };
 
+const renderContent = (reports: ReportsModel[] | undefined, loading: boolean) => {
+	if (loading) {
+		return <LoadingIcon loading={loading} />;
+	} else if (reports && reports.length > 0) {
+		return <DisplayReports reports={reports} />;
+	} else {
+		return <NoReports />;
+	}
+};
+
 const HomePage = () => {
 	const [reports, setReports] = useState<ReportsModel[]>();
 	const [loading, setLoading] = useState<boolean>(true);
@@ -69,16 +79,6 @@ const HomePage = () => {
 		fetchData();
 	}, []);
 
-	const renderContent = () => {
-		if (loading) {
-			return <LoadingIcon loading={loading} />;
-		} else if (reports && reports.length > 0) {
-			return <DisplayReports reports={reports} />;
-		} else {
-			return <NoReports />;
-		}
-	};
-
 	return (
 		<Layout>
 			<About />
@@ -97,7 +97,7 @@ const HomePage = () => {
 				</Link>
 			</div>
 
-			<ul>{renderContent()}</ul>
+			<ul>{renderContent(reports, loading)}</ul>
 		</Layout>
 	);
 };

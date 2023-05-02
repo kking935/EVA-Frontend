@@ -18,7 +18,7 @@ const SurveyPage = () => {
 
 	const [report, setReport] = useState<ReportsModel>();
 	const [sid, setSid] = useState<string>();
-	const [question, setQuestion] = useState<QuestionsModel>();
+	const [question, setQuestion] = useState<SurveyQuestion>();
 	const [numQuestions, setNumQuestions] = useState<number>(0);
 
 	useEffect(() => {
