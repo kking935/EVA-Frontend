@@ -35,7 +35,7 @@ const iconSize = 20;
 export const labelStyles: LabelStyle = {
 	'Economic Stability': {
 		icon: <FaMoneyCheck size={iconSize} />,
-		color: 'bg-red-400',
+		color: 'bg-red-300',
 		sublabels: {
 			Employment: <FaBriefcase size={iconSize} />,
 			'Food Insecurity': <FaUtensils size={iconSize} />,
@@ -45,7 +45,7 @@ export const labelStyles: LabelStyle = {
 	},
 	'Education Access and Quality': {
 		icon: <FaGraduationCap size={iconSize} />,
-		color: 'bg-orange-400',
+		color: 'bg-orange-300',
 		sublabels: {
 			'Early Childhood Development and Education': (
 				<FaSchool size={iconSize} />
@@ -57,7 +57,7 @@ export const labelStyles: LabelStyle = {
 	},
 	'Health Care Access and Quality': {
 		icon: <FaHospital size={iconSize} />,
-		color: 'bg-yellow-400',
+		color: 'bg-yellow-300',
 		sublabels: {
 			'Access to Health Services': <FaHospital size={iconSize} />,
 			'Access to Primary Care': <FaUserNurse size={iconSize} />,
@@ -66,7 +66,7 @@ export const labelStyles: LabelStyle = {
 	},
 	'Neighborhood and Built Environment': {
 		icon: <FaUserNurse size={iconSize} />,
-		color: 'bg-purple-400',
+		color: 'bg-purple-300',
 		sublabels: {
 			'Access to Foods That Support Healthy Dietary Patterns': (
 				<FaCarrot size={iconSize} />
@@ -78,7 +78,7 @@ export const labelStyles: LabelStyle = {
 	},
 	'Social and Community Context': {
 		icon: <FaUserNurse size={iconSize} />,
-		color: 'bg-pink-400',
+		color: 'bg-pink-300',
 		sublabels: {
 			'Civic Participation': <FaHandsHelping size={iconSize} />,
 			Discrimination: <FaAngry size={iconSize} />,
