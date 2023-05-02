@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import Layout from '../components/Layout';
+import Layout from '../components/common/Layout';
 import {
 	FaArrowRight,
 	FaCalendar,
@@ -8,8 +8,9 @@ import {
 } from 'react-icons/fa';
 import { useEffect, useState } from 'react';
 import { getReports } from '../services/backend.service';
-import LoadingIcon from '../components/LoadingIcon';
-import About from '../components/About';
+import LoadingIcon from '../components/common/LoadingIcon';
+import About from '../components/common/About';
+import { actionButtonStyles } from '../components/TailwindStyles';
 
 const DisplayReports = ({ reports }: { reports: ReportsModel[] }) => {
 	return (
@@ -26,7 +27,7 @@ const DisplayReports = ({ reports }: { reports: ReportsModel[] }) => {
 							</p>
 							<p>{report.created_at}</p>
 						</div>
-						<p className='invisible sm:visible text-sm italic px-5 truncate'>
+						<p className='invisible sm:visible text-sm italic px-5 truncate flex-grow'>
 							{report.summary}
 						</p>
 						<p>
@@ -64,7 +65,7 @@ const HomePage = () => {
 	useEffect(() => {
 		async function fetchData() {
 			const { data, error } = await getReports();
-			if (error) {
+			if (error || !data) {
 				console.log(error);
 				return;
 			}
@@ -90,7 +91,7 @@ const HomePage = () => {
 
 				<Link
 					href='/survey'
-					className='action-item font-bold text-dark flex items-center justify-center space-x-2 h-12'
+					className={`${actionButtonStyles} font-bold flex items-center justify-center space-x-2 h-12`}
 				>
 					<FaPlus />
 					<p className='text-xs sm:text-base'>NEW SURVEY</p>

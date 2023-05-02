@@ -2,45 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  /* Create a CSS variable  */
-  --bg-primary: #93d4ff;
-  --bg-secondary: white;
-  /* --bg-dark: rgb(37, 50, 63); */
-  --bg-dark: #334155;
-  --text-primary: black;
-  --text-secondary: rgb(64, 66, 73);
-  --text-dark: white;
-}
-
 body {
   font-family: Arial, Helvetica, sans-serif;
-  background: var(--bg-dark);
-  color: var(--text-primary);
-}
-
-.bg-primary {
-  background: var(--bg-primary);
-}
-
-.bg-secondary {
-  background: var(--bg-secondary);
-}
-
-.bg-dark {
-  background: var(--bg-dark);
-}
-
-.text-primary {
-  color: var(--text-primary); 
-}
-
-.text-dark {
-  color: var(--text-dark); 
-}
-
-.color-secondary {
-  color: var(--text-secondary);
+  color: black;
+  background-color: #334155;
 }
 
 p {
@@ -48,34 +13,9 @@ p {
   padding: 0px;
 }
 
-hr {
-  width: 100%;
-  color: var(--text-secondary);
-}
-
-textarea {
-  padding: 10px;
-  height: 150px;
-}
-
-textarea, input {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-  border: 1px solid var(--text-secondary);
-}
-
-.action-item, .blue-select {
-  background-color: var(--bg-primary);
-  border-radius: 5px;
-  padding: 10px 20px;
-  transition: all 0.3s ease;
-  margin: 10px 0px;
-  cursor: pointer;
-}
-
-.action-item:hover {
-  background-color: #50a5dd;
+textarea:focus, input:focus {
+  outline-color: #ccc;
+  outline-width: 0.5px;
 }
 
 @keyframes spin {

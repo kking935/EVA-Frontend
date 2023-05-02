@@ -1,0 +1,1 @@
+export const actionButtonStyles = " my-2 py-2 px-2 bg-gradient-to-b from-blue-300 to-blue-400 hover:from-blue-400 hover:to-blue-500 text-white rounded-lg shadow cursor-pointer "

@@ -1,12 +1,8 @@
 import {
 	FaAngry,
-	FaBookOpen,
 	FaBookReader,
 	FaBriefcase,
-	FaBuilding,
 	FaCarrot,
-	FaChevronRight,
-	FaChurch,
 	FaGavel,
 	FaGraduationCap,
 	FaHandsHelping,
@@ -92,42 +88,24 @@ export const labelStyles: LabelStyle = {
 	},
 };
 
-export const DisplayLabelIcon = ({
-	label,
-	sublabel,
-}: {
-	label: string;
-	sublabel: string;
-}) => {
+export const DisplayLabelIcon = ({ sublabel }: { sublabel: string }) => {
+	let label = '';
+
+	for (const label_name in labelStyles) {
+		const label_style = labelStyles[label_name];
+		for (const sublabel_name in label_style['sublabels']) {
+			if (sublabel_name == sublabel) {
+				label = label_name;
+			}
+		}
+	}
+
 	return (
 		<div
-			className={`w-fit shadow-lg my-0.5 mr-2 h-8 text-sm px-2 space-x-1 rounded-lg flex justify-center items-center ${labelStyles[label].color}`}
+			className={`w-fit shadow my-0.5 mr-2 h-8 text-xs sm:text-sm px-2 space-x-1 rounded-lg flex justify-center items-center ${labelStyles[label].color}`}
 		>
 			{labelStyles[label].sublabels[sublabel]}
 			<p>{sublabel}</p>
 		</div>
-	);
-};
-
-export const DisplayLabelIcons = ({
-	labels,
-}: {
-	labels: Record<string, string[]>;
-}) => {
-	return (
-		<>
-			<div className='flex flex-row justify-start items-center flex-wrap'>
-				{Object.entries(labels).map(
-					([label, sublabels]: [string, string[]]) =>
-						sublabels.map((sublabel: string) => (
-							<DisplayLabelIcon
-								key={label + sublabel}
-								label={label}
-								sublabel={sublabel}
-							/>
-						))
-				)}
-			</div>
-		</>
 	);
 };

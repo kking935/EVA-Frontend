@@ -1,11 +1,13 @@
-import Layout from '../components/Layout';
+import Layout from '../components/common/Layout';
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { FaSpinner } from 'react-icons/fa';
 import { createSurvey, addAnswer } from '../services/backend.service';
 import { toast } from 'react-toastify';
-import LoadingIcon from '../components/LoadingIcon';
+import LoadingIcon from '../components/common/LoadingIcon';
+import { useRouter } from 'next/router';
+import { actionButtonStyles } from '../components/TailwindStyles';
 
 const timeoutTime = 500;
 
@@ -15,6 +17,7 @@ const SurveyPage = () => {
 		handleSubmit,
 		formState: { errors },
 	} = useForm();
+	const router = useRouter()
 
 	const [report, setReport] = useState<ReportsModel>();
 	const [sid, setSid] = useState<string>();
@@ -77,19 +80,7 @@ const SurveyPage = () => {
 	};
 
 	if (report) {
-		return (
-			<Layout>
-				<div className='text-2xl mt-32 flex space-y-3 flex-col justify-center items-center'>
-					<p className='font-bold text-2xl'>Submission Success!</p>
-					<Link
-						className='action-item text-dark font-bold w-32 text-center'
-						href={`/report?id=${report.rid}`}
-					>
-						View Results
-					</Link>
-				</div>
-			</Layout>
-		);
+		router.push(`/report?id=${report.rid}`)
 	}
 
 	return (
@@ -107,23 +98,21 @@ const SurveyPage = () => {
 								await handleAddAnswer(data, question?.qid)
 						)}
 					>
-						<div className='mb-10'>
-							<p>
-								{question?.qid}. {question?.question}
-							</p>
-							<textarea
-								className='px-3 py-2 rounded-lg'
-								{...register(`${question?.qid}`, {
-									required: true,
-								})}
-							/>
-							{errors[`${question?.qid}`] && (
-								<p>Unanswered question</p>
-							)}
-						</div>
+						<p>
+							{question?.qid}. {question?.question}
+						</p>
+						<textarea
+							className='px-3 py-2 rounded-lg border w-full h-32'
+							{...register(`${question?.qid}`, {
+								required: true,
+							})}
+						/>
+						{errors[`${question?.qid}`] && (
+							<p>Unanswered question</p>
+						)}
 						<div className='inline-flex justify-center items-center w-full mt-10'>
 							<button
-								className='action-item text-dark font-bold w-32'
+								className={`${actionButtonStyles} font-bold w-32`}
 								type='submit'
 							>
 								Next

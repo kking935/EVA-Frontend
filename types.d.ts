@@ -50,7 +50,7 @@ interface SurveyQuestion {
   question: string;
   labels?: LabelsModel[] | null;
   answer?: string | null;
-  risk_factors?: Record<string, unknown> | null;
+  risk_factors?: Record<string, string[]> | null;
 }
 
 interface SurveyModel {
@@ -71,7 +71,8 @@ interface ReportsModel {
   messages?: Message[] | null;
   overall_risk_factors: Record<string, string[]>;
   summary: string | null;
-  date: string
+  date: string;
+  verified?: boolean
 }
 
 interface UsersModel {

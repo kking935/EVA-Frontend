@@ -1,11 +1,11 @@
 import { useState, useEffect, ReactNode } from 'react';
 import { useRouter } from 'next/router';
-import Layout from '../components/Layout';
+import Layout from '../components/common/Layout';
 import { FaClipboard, FaEdit } from 'react-icons/fa';
 import { toast } from 'react-toastify';
 import { getReport } from '../services/backend.service';
-import LoadingIcon from '../components/LoadingIcon';
-import ReportCard from '../components/ReportCard';
+import LoadingIcon from '../components/common/LoadingIcon';
+import {ReportCard} from '../components/Report/ReportCard';
 
 // const ReportIdSnippet = ({ reportId }: { reportId: string }) => {
 // 	const copyToClipboard = () => {
@@ -15,7 +15,7 @@ import ReportCard from '../components/ReportCard';
 
 // 	return (
 // 		<button
-// 			className='action-item ml-2 fill-current'
+// 			className='ml-2 fill-current'
 // 			onClick={copyToClipboard}
 // 		>
 // 			<FaClipboard />
@@ -43,11 +43,9 @@ const renderContent = (report: ReportsModel | undefined, loading: boolean) => {
 };
 
 const ReportPage = () => {
-	const [edit, setEdit] = useState(false);
 	const [loading, setLoading] = useState(true);
 	const router = useRouter();
 	const [report, setReport] = useState<any>(null);
-	const [error, setError] = useState<any>(null);
 
 	useEffect(() => {
 		async function fetchData() {
@@ -59,7 +57,7 @@ const ReportPage = () => {
 
 			const { data, error } = await getReport(reportId as string);
 			if (error) {
-				setError(error);
+				console.log(error);
 				setLoading(false);
 				return;
 			}
@@ -72,20 +70,6 @@ const ReportPage = () => {
 
 	return (
 		<Layout>
-			<div className='flex flex-row items-center justify-center'>
-				<div className='w-1/5'></div>
-				<h2 className='font-bold text-2xl w-3/5 text-center'>Report</h2>
-				<div className='w-1/5 flex flex-row items-center justify-end'>
-					{/* <ReportIdSnippet reportId={report.rid} /> */}
-					<button
-						onClick={() => setEdit(true)}
-						className='action-item fill-current'
-					>
-						<FaEdit size={20} />
-					</button>
-				</div>
-			</div>
-			<hr className='my-5 border-current' />
 			{renderContent(report, loading)}
 		</Layout>
 	);
