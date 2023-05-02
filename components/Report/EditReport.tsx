@@ -6,7 +6,7 @@ import { toast } from 'react-toastify';
 import {
 	getSublabelStringsFromLabelsDict,
 	createLabelDict,
-} from '../../pages/utils/helpers';
+} from '../../utils/helpers';
 import { getLabels, updateReport } from '../../services/backend.service';
 import { EditLabels } from '../EditLabels';
 import { actionButtonStyles } from '../TailwindStyles';

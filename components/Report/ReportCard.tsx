@@ -19,7 +19,7 @@ import { DisplayLabelIcon } from '../LabelCard';
 import {
 	createLabelDict,
 	getSublabelStringsFromLabelsDict,
-} from '../../pages/utils/helpers';
+} from '../../utils/helpers';
 import { getLabels, updateReport } from '../../services/backend.service';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/router';

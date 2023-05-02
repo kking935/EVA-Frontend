@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { FaChevronRight } from 'react-icons/fa';
-import { getSublabelStringsFromLabelsDict } from '../../pages/utils/helpers';
+import { getSublabelStringsFromLabelsDict } from '../../utils/helpers';
 import { DisplayLabelIcon } from '../LabelCard';
 import { actionButtonStyles } from '../TailwindStyles';
 
