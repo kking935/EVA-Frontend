@@ -100,6 +100,10 @@ export const DisplayLabelIcon = ({ sublabel }: { sublabel: string }) => {
 		}
 	}
 
+	if (!label) {
+		return <></>;
+	}
+
 	return (
 		<div
 			className={`w-fit shadow my-0.5 mr-2 h-8 text-xs sm:text-sm px-2 space-x-1 rounded-lg flex justify-center items-center ${labelStyles[label].color}`}
