@@ -6,7 +6,13 @@ const VideoPage = () => {
     const router = useRouter()
 
     useEffect(() => {
-        router.push("https://youtu.be/0OOlOMXxVLU")
+        const VIDEO_URL = process.env.NEXT_PUBLIC_VIDEO_URL;
+        if (VIDEO_URL) {
+            router.push(VIDEO_URL)
+        }
+        else {
+            router.push('/404')
+        }
     }, [router])
 
     return (
