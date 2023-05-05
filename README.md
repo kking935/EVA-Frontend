@@ -14,8 +14,19 @@ The most important files are the survey page found [here](/pages/survey.tsx) and
     npm install
     ```
 
-2. Then, launch the application:
+2. Add your environmental variables in `.env.local`
+
+3. Then, launch the application:
 
     ```bash
     npm run dev
     ```
+
+## Libraries and Frameworks
+
+- Next.js
+- React.js
+- TailwindCSS
+- Teact Toastify
+- React Hook Form
+- React Icons
